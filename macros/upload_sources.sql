@@ -19,7 +19,7 @@
             {{ adapter.dispatch('column_identifier', 'dbt_artifacts')(4) }},
             {{ adapter.dispatch('column_identifier', 'dbt_artifacts')(5) }},
             {{ adapter.dispatch('column_identifier', 'dbt_artifacts')(6) }},
-            left({{ adapter.dispatch('column_identifier', 'dbt_artifacts')(7) }},2000),
+            {{ adapter.dispatch('column_identifier', 'dbt_artifacts')(7) }},
             {{ adapter.dispatch('column_identifier', 'dbt_artifacts')(8) }},
             {{ adapter.dispatch('column_identifier', 'dbt_artifacts')(9) }},
             {{ adapter.dispatch('column_identifier', 'dbt_artifacts')(10) }},
@@ -56,7 +56,7 @@
     {% else %}
         {{ return("") }}
     {% endif %}
-{% endmacro -%}
+{% endmacro -%} 
 
 {% macro bigquery__get_sources_dml_sql(sources) -%}
     {% if sources != [] %}
