@@ -19,13 +19,16 @@
             {{ adapter.dispatch('column_identifier', 'dbt_artifacts')(4) }},
             {{ adapter.dispatch('column_identifier', 'dbt_artifacts')(5) }},
             {{ adapter.dispatch('column_identifier', 'dbt_artifacts')(6) }},
-            {{ adapter.dispatch('column_identifier', 'dbt_artifacts')(7) }},
+            left({{ adapter.dispatch('column_identifier', 'dbt_artifacts')(7) }},2000),
             {{ adapter.dispatch('column_identifier', 'dbt_artifacts')(8) }},
             {{ adapter.dispatch('column_identifier', 'dbt_artifacts')(9) }},
             {{ adapter.dispatch('column_identifier', 'dbt_artifacts')(10) }},
             {{ adapter.dispatch('column_identifier', 'dbt_artifacts')(11) }},
-            {{ adapter.dispatch('parse_json', 'dbt_artifacts')(adapter.dispatch('column_identifier', 'dbt_artifacts')(12)) }},
-            {{ adapter.dispatch('parse_json', 'dbt_artifacts')(adapter.dispatch('column_identifier', 'dbt_artifacts')(13)) }}
+            {{ adapter.dispatch('column_identifier', 'dbt_artifacts')(12) }},
+            {{ adapter.dispatch('column_identifier', 'dbt_artifacts')(13) }},
+            {{ adapter.dispatch('column_identifier', 'dbt_artifacts')(14) }},
+            {{ adapter.dispatch('parse_json', 'dbt_artifacts')(adapter.dispatch('column_identifier', 'dbt_artifacts')(15)) }},
+            {{ adapter.dispatch('parse_json', 'dbt_artifacts')(adapter.dispatch('column_identifier', 'dbt_artifacts')(16)) }}
         from values
         {% for source in sources -%}
             (
@@ -39,7 +42,10 @@
                 '{{ source.loader }}', {# loader #}
                 '{{ source.name }}', {# name #}
                 '{{ source.identifier }}', {# identifier #}
+                '{{ source.package_name }}', {# package_name #}
+                '{{ source.description | replace("'","\\'") }}', {# description #}
                 '{{ source.loaded_at_field | replace("'","\\'") }}', {# loaded_at_field #}
+                '{{ source.relation_name }}', {# relation_name #}
                 '{{ tojson(source.freshness) | replace("'","\\'") }}', {# freshness #}
                 '{{ tojson(source.source_meta) | replace("'","\\'") }}' {# source_meta #}
             )
@@ -67,7 +73,11 @@
                     '{{ source.loader }}', {# loader #}
                     '{{ source.name }}', {# name #}
                     '{{ source.identifier }}', {# identifier #}
+                    '{{ source.identifier }}', {# identifier #}
+                    '{{ source.package_name }}', {# package_name #}
+                    '{{ source.description | replace("'","\\'") }}', {# description #}
                     '{{ source.loaded_at_field | replace("'","\\'") }}', {# loaded_at_field #}
+                    '{{ source.relation_name }}', {# relation_name #}
                     parse_json('{{ tojson(source.freshness) | replace("'","\\'") }}'),  {# freshness #}
                     parse_json('{{ tojson(source.source_meta) | replace("'","\\'") }}')  {# source_meta #}
                 )

@@ -19,7 +19,10 @@ enhanced as (
         loader,
         name,
         identifier,
+        package_name,
+        description,
         loaded_at_field,
+        relation_name,
         freshness,
         source_meta
     from base
